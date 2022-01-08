@@ -65,7 +65,7 @@ public class Triangle {
     * @return semiperimeter
     */
     public double getSemiperimeter() {
-        return new BigDecimal((side1 + side2 + side3) / 2).setScale(
+        return new BigDecimal(getPerimeter() / 2).setScale(
             NUM_OF_DECIMALS, RoundingMode.HALF_UP).doubleValue();
     }
 

@@ -50,13 +50,14 @@ final class Main {
     public static void main(final String[] args) {
         try {
             final Triangle triangle = new Triangle(
-                userInput("Side 1: "),
-                userInput("Side 2: "),
-                userInput("Side 3: ")
+                userInput("Side 1 (Any unit): "),
+                userInput("Side 2 (Same unit): "),
+                userInput("Side 3 (Same unit): ")
             );
 
             System.out.println(
                 "\nType: " + triangle.getName()
+                + "\n\nIn the unit you based your side lengths on..."
                 + "\nArea: " + triangle.getArea()
                 + "\nPerimeter: " + triangle.getPerimeter()
                 + "\nSemiperimeter: " + triangle.getSemiperimeter()

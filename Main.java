@@ -32,14 +32,14 @@ final class Main {
     * @return input as an int
     * @throws IOException if anything unexpected happens
     */
-    private static int userInput(final String prompt) throws IOException {
+    private static double userInput(final String prompt) throws IOException {
         System.out.print(prompt);
 
         final String inputString = new BufferedReader(
                 new InputStreamReader(System.in)
         ).readLine();
 
-        return Integer.parseInt(inputString);
+        return Double.parseDouble(inputString);
     }
 
     /**

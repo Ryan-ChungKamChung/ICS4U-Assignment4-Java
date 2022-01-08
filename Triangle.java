@@ -6,8 +6,13 @@
  * @since   2022-01-06
  */
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /** Triangle class with triangle properties and sides. */
 public class Triangle {
+    /** Number of decimals shown to the user. */
+    private static final int NUM_OF_DECIMALS = 4;
     /** Triangle's first side. */
     private final double side1;
     /** Triangle's second side. */
@@ -60,7 +65,8 @@ public class Triangle {
     * @return semiperimeter
     */
     public double getSemiperimeter() {
-        return (side1 + side2 + side3) / 2;
+        return new BigDecimal((side1 + side2 + side3) / 2).setScale(
+            NUM_OF_DECIMALS, RoundingMode.HALF_UP).doubleValue();
     }
 
     /**
@@ -70,10 +76,9 @@ public class Triangle {
     */
     public double getArea() {
         final double semiperimeter = getSemiperimeter();
-        return Math.sqrt(
-            semiperimeter * (semiperimeter - side1) * (semiperimeter - side2)
-            * (semiperimeter - side3)
-        );
+        return new BigDecimal(Math.sqrt(semiperimeter * (semiperimeter - side1)
+            * (semiperimeter - side2) * (semiperimeter - side3)
+        )).setScale(NUM_OF_DECIMALS, RoundingMode.HALF_UP).doubleValue();
     }
 
     /**
@@ -82,7 +87,8 @@ public class Triangle {
     * @return perimeter
     */
     public double getPerimeter() {
-        return side1 + side2 + side3;
+        return new BigDecimal(side1 + side2 + side3).setScale(
+            NUM_OF_DECIMALS, RoundingMode.HALF_UP).doubleValue();
     }
 
     /**
@@ -109,18 +115,28 @@ public class Triangle {
     * @return the angles
     */
     public double[] getAngles() {
+        final double toDegree = 180 / Math.PI;
+
         final double squaredSide1 = Math.pow(side1, 2);
         final double squaredSide2 = Math.pow(side2, 2);
         final double squaredSide3 = Math.pow(side3, 2);
 
-        final double[] angles = {
+        final double angle1 = new BigDecimal(
             Math.acos((squaredSide2 + squaredSide3 - squaredSide3)
-                / (2 * side2 * side3)) * 180 / Math.PI,
+            / (2 * side2 * side3)) * toDegree
+        ).setScale(NUM_OF_DECIMALS, RoundingMode.HALF_UP).doubleValue();
+
+        final double angle2 = new BigDecimal(
             Math.acos((squaredSide1 + squaredSide3 - squaredSide2)
-                / (2 * side1 * side2)) * 180 / Math.PI,
+            / (2 * side1 * side2)) * toDegree
+        ).setScale(NUM_OF_DECIMALS, RoundingMode.HALF_UP).doubleValue();
+
+        final double angle3 = new BigDecimal(
             Math.acos((squaredSide1 + squaredSide2 - squaredSide3)
-                / (2 * side1 * side2)) * 180 / Math.PI,
-        };
+            / (2 * side1 * side2)) * toDegree
+        ).setScale(NUM_OF_DECIMALS, RoundingMode.HALF_UP).doubleValue();
+
+        final double[] angles = {angle1, angle2, angle3, };
         return angles;
     }
 
@@ -130,11 +146,19 @@ public class Triangle {
     * @return the heights
     */
     public double[] getHeights() {
-        final double[] heights = {
-            2 * getArea() * side1,
-            2 * getArea() * side2,
-            2 * getArea() * side3,
-        };
+        final double height1 = new BigDecimal(
+            2 * getArea() * side1
+        ).setScale(NUM_OF_DECIMALS, RoundingMode.HALF_UP).doubleValue();
+
+        final double height2 = new BigDecimal(
+            2 * getArea() * side2
+        ).setScale(NUM_OF_DECIMALS, RoundingMode.HALF_UP).doubleValue();
+
+        final double height3 = new BigDecimal(
+            2 * getArea() * side3
+        ).setScale(NUM_OF_DECIMALS, RoundingMode.HALF_UP).doubleValue();
+
+        final double[] heights = {height1, height2, height3, };
         return heights;
     }
 
@@ -144,7 +168,9 @@ public class Triangle {
     * @return the incircle radius
     */
     public double getIncircleRadius() {
-        return getArea() / getSemiperimeter();
+        return new BigDecimal(
+            getArea() / getSemiperimeter()
+        ).setScale(NUM_OF_DECIMALS, RoundingMode.HALF_UP).doubleValue();
     }
 
     /**
@@ -154,8 +180,9 @@ public class Triangle {
     */
     public double getCircumcircleArea() {
         final double multiplier = 4;
-        return Math.PI * Math.pow(
-            (side1 * side2 * side3) / (multiplier * getArea()), 2
-        );
+        return new BigDecimal(
+            Math.PI * Math.pow((side1 * side2 * side3)
+            / (multiplier * getArea()), 2)
+        ).setScale(NUM_OF_DECIMALS, RoundingMode.HALF_UP).doubleValue();
     }
 }

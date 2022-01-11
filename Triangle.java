@@ -122,7 +122,7 @@ public class Triangle {
         final double squaredSide3 = Math.pow(side3, 2);
 
         final double angle1 = new BigDecimal(
-            Math.acos((squaredSide2 + squaredSide3 - squaredSide3)
+            Math.acos((squaredSide2 + squaredSide3 - squaredSide1)
             / (2 * side2 * side3)) * toDegree
         ).setScale(NUM_OF_DECIMALS, RoundingMode.HALF_UP).doubleValue();
 
